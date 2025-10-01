@@ -87,7 +87,7 @@ const updateStatus =async(req,res)=>{
 
 const userOrder=async(req,res)=>{
     try {
-        const order=await Order.find({userId:req.userId})
+        const order=await Order.find({userId:req.userId}).sort({createdAt:-1})
         res.status(200).json({success:true,data:order})
     } catch (error) {
        console.log(error) 
