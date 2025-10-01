@@ -6,6 +6,7 @@ import Contact from './pages/Contact';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import Footer from './components/Footer';
+import {Toaster} from 'react-hot-toast'
 function App() {
   return (
     <div className='flex flex-col min-h-screen'>
@@ -20,6 +21,7 @@ function App() {
       </Routes>
       </main>
       <Footer/>
+      <Toaster/>
     </div>
   );
 }

@@ -28,8 +28,8 @@ const Navbar = () => {
           src="https://cdn-icons-png.flaticon.com/512/263/263142.png"
           alt="cart"
         />
-        <button onClick={()=>navigate('/signup')} className="hidden sm:block rounded-lg py-1 px-2 text-white bg-red-500">
-          Sign Up
+        <button onClick={()=>navigate('/signin')} className="hidden sm:block rounded-lg py-1 px-2 text-white bg-red-500">
+          Sign In
         </button>
       </div>
       {/*Mobile menu */}
