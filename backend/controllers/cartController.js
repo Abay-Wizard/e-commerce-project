@@ -37,7 +37,7 @@ const getFromCart =async(req,res)=>{
     try {
         const userData=await User.findById(req.userId)
         const cartData=userData.cartData
-        res.status(200).json({success:true, message:"cartData fetched successfully!",cartData})
+        res.status(200).json({success:true, message:"cartData fetched successfully!",data:cartData})
     } catch (error) {
        console.log(error)
        res.status(500).json({success:false,message:'Server error'})
