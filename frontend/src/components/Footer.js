@@ -58,7 +58,7 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="border-t border-gray-700 mt-12 pt-6 text-center text-gray-500 text-sm">
+      <div className="border-t border-gray-700 mt-12 pt-6 pb-2 text-center text-gray-500 text-sm">
         &copy; {new Date().getFullYear()} GoShop. All rights reserved.
       </div>
     </footer>

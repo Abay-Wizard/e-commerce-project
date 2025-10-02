@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { FaBars } from "react-icons/fa";
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { StoreContext } from "../context/StoreContext";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const navigate=useNavigate()
+  const [isOpen, setIsOpen] = useState(false);
+  const { token, setToken } = useContext(StoreContext);
+  const navigate = useNavigate();
   return (
     <nav className="flex items-center justify-around py-5 sticky z-50 top-0 bg-gray-50 shadow-md">
       <div>
@@ -28,9 +31,44 @@ const Navbar = () => {
           src="https://cdn-icons-png.flaticon.com/512/263/263142.png"
           alt="cart"
         />
-        <button onClick={()=>navigate('/signin')} className="hidden sm:block rounded-lg py-1 px-2 text-white bg-red-500">
-          Sign In
-        </button>
+        {token ? (
+          <div className="relative">
+            <img
+              onClick={() => setIsOpen((prev) => !prev)}
+              className="size-10 rounded-full cursor-pointer"
+              src="https://static.vecteezy.com/system/resources/previews/019/879/186/non_2x/user-icon-on-transparent-background-free-png.png"
+              alt=""
+            />
+
+            {isOpen && (
+              <div className="absolute top-12 right-0 flex flex-col items-start bg-white shadow-lg rounded-xl w-32 py-2 z-20">
+                <Link
+                  onClick={()=>setIsOpen(prev=>!prev)}
+                  to="/myorders"
+                  className="px-4 py-2 w-full text-purple-500 text-left hover:bg-gray-100"
+                >
+                  Orders
+                </Link>
+                <button
+                  onClick={() =>{
+                      setToken("")
+                      setIsOpen(prev=>!prev)
+                  }}
+                  className="px-4 py-2 w-full text-purple-500 text-left hover:bg-gray-100"
+                >
+                  Logout
+                </button>
+              </div>
+            )}
+          </div>
+        ) : (
+          <button
+            onClick={() => navigate("/signin")}
+            className="hidden sm:block rounded-lg py-1 px-2 text-white bg-red-500"
+          >
+            Sign In
+          </button>
+        )}
       </div>
       {/*Mobile menu */}
       <div className="md:hidden">
