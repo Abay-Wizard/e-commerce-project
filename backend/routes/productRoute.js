@@ -6,6 +6,6 @@ const router=express.Router()
 router.post('/add',upload.single('image'),createProduct)
 router.get('/list',getAllProducts)
 router.get('/list/:id',getSingleProduct)
-router.delete('/delete/:id',deleteProduct)
+router.post('/delete/:id',deleteProduct)
 
 export default router
