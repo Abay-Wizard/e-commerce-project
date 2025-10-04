@@ -27,7 +27,7 @@ const Navbar = () => {
           src="https://www.iconpacks.net/icons/2/free-search-icon-2903-thumb.png"
           alt="search"
         />
-        <div className="relative inline-block">
+        <div onClick={()=>navigate('/cart')} className="relative inline-block">
           <img
             className="w-8 h-8 cursor-pointer"
             src="https://cdn-icons-png.flaticon.com/512/263/263142.png"

@@ -1,9 +1,9 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   return (
     <section className="flex flex-col md:flex-row items-center justify-between px-8 md:px-16 lg:px-24 py-12 bg-gradient-to-r from-purple-50 to-white">
       {/* Text Section */}
@@ -23,8 +23,11 @@ const Hero = () => {
           need is just a click away. Enjoy a seamless shopping experience with
           secure payments and fast delivery right to your doorstep.
         </p>
-        <button onClick={()=>navigate('/shop')} className="px-6 py-3 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-600 transition">
-          Start Shopping
+        <button
+          onClick={() => navigate("/shop")}
+          className="px-6 py-3 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-600 transition transform hover:scale-105 animate-bounce-slow relative overflow-hidden"
+        >
+          <span className="relative z-10">Start Shopping</span>
         </button>
       </motion.div>
 
