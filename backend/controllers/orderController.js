@@ -6,7 +6,7 @@ dotenv.config()
 
 const stripe=new Stripe(process.env.stripe_key)
 const placeOrder=async(req,res)=>{
-    const frontend_url='http://localhost:3000'
+    const frontend_url='https://e-commerce-project-eight-liart.vercel.app'
     const {items,address,amount} =req.body
     try {
         const order=new Order({

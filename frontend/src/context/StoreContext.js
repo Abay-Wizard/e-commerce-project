@@ -2,7 +2,7 @@ import { createContext, useState, useEffect } from "react";
 import axios from "axios";
 export const StoreContext = createContext(null);
 const StoreContextProvider = (props) => {
-  const url = "http://localhost:5000";
+  const url = "https://e-commerce-project-1pvn.onrender.com";
   const [token, setToken] = useState("");
   const [products, setProducts] = useState([]);
   const [cartItems, setCartItems] = useState({});
