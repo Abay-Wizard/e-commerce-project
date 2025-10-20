@@ -1,13 +1,13 @@
 import React, { useContext } from "react";
 import { StoreContext } from "../context/StoreContext";
 
-const TrackOrder = () => {
-  const { orders, updateStatus, setRefreshFlag } = useContext(StoreContext);
+const UserOrder = () => {
+  const { orders, setRefreshFlag } = useContext(StoreContext);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-10 px-6">
       <h2 className="text-4xl font-extrabold text-center text-gray-800 mb-10 tracking-tight">
-        Order Management
+        Your Orders
       </h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
@@ -53,19 +53,24 @@ const TrackOrder = () => {
 
               {/* Footer: Status + Total */}
               <div className="mt-5 flex justify-between items-center">
-                <div className="flex flex-col gap-2">
-                  <select
-                    value={order.status}
-                    onChange={(e) => {
-                      updateStatus(order._id, e.target.value);
-                      setRefreshFlag((prev) => !prev);
-                    }}
-                    className="border border-gray-300 rounded-md py-1.5 px-2 text-sm focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition"
+                <div className="flex flex-col">
+                  <span
+                    className={`text-sm font-semibold mb-1 ${
+                      order.status === "Delivered"
+                        ? "text-green-600"
+                        : order.status === "Order Processing"
+                        ? "text-yellow-500"
+                        : "text-blue-600"
+                    }`}
                   >
-                    <option value="Order Processing">Order Processing</option>
-                    <option value="Out for Delivery">Out for Delivery</option>
-                    <option value="Delivered">Delivered</option>
-                  </select>
+                    {order.status}
+                  </span>
+                  <button
+                    onClick={() => setRefreshFlag((prev) => !prev)}
+                    className="text-sm bg-purple-600 text-white py-1 px-3 rounded-md hover:bg-purple-700 transition"
+                  >
+                    Track Order
+                  </button>
                 </div>
 
                 <div className="text-right">
@@ -79,7 +84,7 @@ const TrackOrder = () => {
           ))
         ) : (
           <p className="text-center col-span-full text-gray-500 text-lg">
-            There are no orders yet.
+            You don’t have any orders yet.
           </p>
         )}
       </div>
@@ -87,4 +92,4 @@ const TrackOrder = () => {
   );
 };
 
-export default TrackOrder;
+export default UserOrder;

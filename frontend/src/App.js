@@ -10,6 +10,8 @@ import {Toaster} from 'react-hot-toast'
 import Shop from './pages/Shop';
 import PlaceOrder from './pages/PlaceOrder';
 import Cart from './pages/Cart';
+import Verify from './pages/Verify';
+import UserOrder from './pages/UserOrder';
 function App() {
   return (
     <div className='flex flex-col min-h-screen'>
@@ -24,6 +26,8 @@ function App() {
         <Route path='/shop' element={<Shop/>} />
         <Route path='/placeOrder' element={<PlaceOrder/>} />
         <Route path='/cart' element={<Cart/>} />
+        <Route path='/verify' element={<Verify/>} />
+        <Route path='/myorders' element={<UserOrder/>} />
       </Routes>
       </main>
       <Footer/>

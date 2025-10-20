@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import toast from 'react-hot-toast'
-import { useContext, createContext, useState } from "react";
+import { createContext, useState } from "react";
 import { useEffect } from "react";
 
 export const StoreContext = createContext(null);
@@ -9,6 +9,7 @@ const StoreContextProvider = (props) => {
   const url = "http://localhost:5000";
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
+  const [users,setUsers]=useState([])
   const [refreshFlag,setRefreshFlag] =useState(false)
 
   const fetchProducts = async () => {
@@ -32,7 +33,7 @@ const StoreContextProvider = (props) => {
 
   const fetchOrders=async()=>{
     try {
-      const res=await axios.get(`${url}/api/order/orders/get`)
+      const res=await axios.get(`${url}/api/order/orders`)
       setOrders(res.data.data)
     } catch (error) {
       console.log(error)
@@ -50,19 +51,40 @@ const StoreContextProvider = (props) => {
           toast.error(error?.response?.data?.message)
         }
   }
+
+  const fetchUsers=async() =>{
+        try {
+          const res=await axios.get(`${url}/api/user/users`)
+          if(res.data.success){
+            setUsers(res.data.data)
+          }
+        } catch (error) {
+          console.log(error)
+        }
+  }
+
   const values = {
     url,
     products,
     setOrders,
     setProducts,
+    orders,
+    users,
     fetchProducts,
     deleteProduct,
     refreshFlag,
-    setRefreshFlag
+    setRefreshFlag,
+    updateStatus,
+    fetchOrders
   };
+  useEffect(()=>{
+    fetchOrders()
+    fetchUsers()
+  },[])
 
   useEffect(() => {
     fetchProducts();
+    fetchOrders()
   }, [refreshFlag]);
   return (
     <StoreContext.Provider value={values}>

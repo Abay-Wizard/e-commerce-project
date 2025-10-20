@@ -27,6 +27,9 @@ const Navbar = () => {
           <li className="hover:text-blue-400 cursor-pointer">
             <Link to="/users">Users</Link>
           </li>
+          <li className="hover:text-blue-400 cursor-pointer">
+            <Link to="/inquiries">Inquiries</Link>
+          </li>
         </ul>
 
         {/* Profile Image */}

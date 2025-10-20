@@ -46,7 +46,7 @@ const SignUp = () => {
             onChange={handleEvent}
             type="text"
             name="name"
-            placeholder="Your Name"
+            placeholder="Full name; ex:Abay Tessema"
             required
             value={data.name}
             className="p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-200"

@@ -7,13 +7,12 @@ dotenv.config()
 const stripe=new Stripe(process.env.stripe_key)
 const placeOrder=async(req,res)=>{
     const frontend_url='http://localhost:3000'
-    const {items,status,payment,address} =req.body
+    const {items,address,amount} =req.body
     try {
         const order=new Order({
             items,
-            status,
-            payment,
             address,
+            amount,
             userId:req.userId
         })
         await order.save()
@@ -36,7 +35,7 @@ const placeOrder=async(req,res)=>{
                     name:'Delivery charge'
                 },
                 currency:'usd',
-                unit_amount:2*100
+                unit_amount:4*100
             },
             quantity:1
         })
@@ -47,7 +46,7 @@ const placeOrder=async(req,res)=>{
             success_url :`${frontend_url}/verify?success=true&orderId=${order._id}`,
             cancel_url :`${frontend_url}/verify?success=false&orderId=${order._id}`
         })
-        res.status(200).json({succes:true,session:session.url})
+        res.status(200).json({success:true,session:session.url})
     } catch (error) {
        console.log(error)
        res.json({success:false, message:'something went wrong'})
@@ -78,24 +77,24 @@ const updateStatus =async(req,res)=>{
       if(!order){
         return res.status(400).json({success:false,message:'order not found'})
       }
-        res.status(201).json({succes:true,message:'Status updated successfully!'})
+        res.status(201).json({success:true,message:'Status updated successfully!'})
     } catch (error) {
         console.log(error)
-        res.status(500).json({succes:false,message:'something went wrong!'})
+        res.status(500).json({success:false,message:'something went wrong!'})
     }
 }
 
 const userOrder=async(req,res)=>{
     try {
-        const order=await Order.find({userId:req.userId}).sort({createdAt:-1})
-        res.status(200).json({success:true,data:order})
+        const orders=await Order.find({userId:req.userId}).sort({createdAt:-1})
+        res.status(200).json({success:true,data:orders})
     } catch (error) {
        console.log(error) 
        res.status(500).json({success:false, message:'Something went wrong!'})
     }
 }
 
-const allOrders=async(req,res)=>{
+const allOrders=async(_,res)=>{
     try {
         const orders=await Order.find({})
         res.status(200).json({success:true,data:orders})

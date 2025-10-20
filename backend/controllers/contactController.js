@@ -15,7 +15,7 @@ const createContact=async(req,res)=>{
     }
 }
 
-const getContact = async(req,res)=>{
+const getContact = async(_,res)=>{
     try {
         const contacts =await Contact.find({})
         if(!contacts){

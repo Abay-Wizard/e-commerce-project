@@ -34,7 +34,7 @@ const Hero = () => {
           ➕ Add Product
         </button>
         <button
-          onClick={() => navigate("/track")}
+          onClick={() => navigate("/orders")}
           className="bg-green-600 text-white px-6 py-3 rounded-lg shadow-md hover:bg-green-700 transition"
         >
           📦 Track Orders

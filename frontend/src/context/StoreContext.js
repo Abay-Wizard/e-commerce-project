@@ -6,6 +6,8 @@ const StoreContextProvider = (props) => {
   const [token, setToken] = useState("");
   const [products, setProducts] = useState([]);
   const [cartItems, setCartItems] = useState({});
+  const [orders, setOrders] = useState([]);
+  const [refreshFlag,setRefreshFlag] =useState(false)
 
   const fetchProducts = async () => {
     try {
@@ -17,10 +19,23 @@ const StoreContextProvider = (props) => {
       console.log(error);
     }
   };
+  const fetchOrders = async () => {
+    try {
+      const res = await axios.get(`${url}/api/order/userorder`, {
+        headers: { token },
+      });
+      if (res.data.success) {
+        setOrders(res.data.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const fetchCartItems = async (activeToken) => {
     try {
       const res = await axios.get(`${url}/api/cart/get`, {
-        headers: {token: activeToken },
+        headers: { token: activeToken },
       });
       if (res.data.success) {
         setCartItems(res.data.data);
@@ -31,9 +46,10 @@ const StoreContextProvider = (props) => {
   };
   const addToCart = async (productId) => {
     try {
-      setCartItems((prev)=>({
-        ...prev,[productId]:prev[productId]?prev[productId]+1:1
-      }))
+      setCartItems((prev) => ({
+        ...prev,
+        [productId]: prev[productId] ? prev[productId] + 1 : 1,
+      }));
       await axios.post(
         `${url}/api/cart/add`,
         { productId },
@@ -78,6 +94,7 @@ const StoreContextProvider = (props) => {
 
   const values = {
     url,
+    orders,
     token,
     setToken,
     products,
@@ -87,27 +104,34 @@ const StoreContextProvider = (props) => {
     removeFromCart,
     addToCart,
     getTotalCart,
-    getTotalPrice
+    getTotalPrice,
+    setRefreshFlag
   };
-
-  useEffect(()=>{
-    if(token){
-        fetchCartItems(token)
-    }
-  },[token]) 
 
   useEffect(() => {
     const loadData = async () => {
       await fetchProducts();
-      const savedToken=localStorage.getItem('token')
+      const savedToken = localStorage.getItem("token");
       if (savedToken) {
-        setToken(savedToken)
+        setToken(savedToken);
         await fetchCartItems(savedToken);
-        
+        await fetchOrders();
       }
     };
     loadData();
   }, []);
+
+  useEffect(() => {
+    if (token) {
+      fetchCartItems(token);
+      fetchOrders();
+    }
+  }, [token]);
+
+  useEffect(()=>{
+    fetchOrders()
+  },[refreshFlag])
+
   return (
     <StoreContext.Provider value={values}>
       {props.children}
