@@ -2,22 +2,23 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-gray-400 text-sm py-4 mt-10">
-      <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between">
+    <footer className="bg-gray-950 text-gray-400 text-sm py-6 mt-12">
+      <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
         {/* Left - Brand */}
-        <p className="mb-2 md:mb-0">
-          © {new Date().getFullYear()} GoShop Admin. All rights reserved.
+        <p className="text-center md:text-left">
+          © {new Date().getFullYear()}{" "}
+          <span className="text-red-500 font-semibold">GoShop Admin</span>. All rights reserved.
         </p>
 
-        {/* Right - Minimal Options */}
-        <div className="flex space-x-4">
-          <span className="hover:text-white cursor-pointer transition">
+        {/* Right - Links */}
+        <div className="flex space-x-6 text-gray-400">
+          <span className="hover:text-red-500 cursor-pointer transition-colors">
             Privacy
           </span>
-          <span className="hover:text-white cursor-pointer transition">
+          <span className="hover:text-red-500 cursor-pointer transition-colors">
             Terms
           </span>
-          <span className="hover:text-white cursor-pointer transition">
+          <span className="hover:text-red-500 cursor-pointer transition-colors">
             Contact
           </span>
         </div>

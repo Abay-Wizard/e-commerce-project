@@ -1,16 +1,18 @@
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { StoreContext } from "../context/StoreContext";
-import { IoClose } from "react-icons/io5";
+import { Minus, Plus, Trash2 } from "lucide-react";
 
 const Cart = () => {
   const {
     cartItems,
+    addToCart,
     url,
     products,
     removeFromCart,
     getTotalCart,
     getTotalPrice,
+    deleteFromCart
   } = useContext(StoreContext);
   const navigate = useNavigate();
 
@@ -31,7 +33,7 @@ const Cart = () => {
                 <th className="p-4 text-center">Price</th>
                 <th className="p-4 text-center">Quantity</th>
                 <th className="p-4 text-center">Total</th>
-                <th className="p-4 text-center">Remove</th>
+                <th className="p-4 text-center">Actions</th>
               </tr>
             </thead>
 
@@ -70,14 +72,37 @@ const Cart = () => {
                         ${(product.price * cartItems[product._id]).toFixed(2)}
                       </td>
 
-                      <td className="p-4 text-center">
+
+
+                      <td className="p-4 text-center flex items-center justify-center gap-3">
+                        {/* Remove One */}
                         <button
                           onClick={() => removeFromCart(product._id)}
-                          className="p-2 bg-red-100 text-red-600 rounded-full hover:bg-red-200 transition"
+                          className="p-2 bg-rose-100 text-rose-600 rounded-full hover:bg-rose-200 transition-all shadow-sm"
+                          title="Remove One"
                         >
-                          <IoClose size={18} />
+                          <Minus size={16} />
+                        </button>
+
+                        {/* Add One */}
+                        <button
+                          onClick={() => addToCart(product._id)}
+                          className="p-2 bg-green-100 text-green-600 rounded-full hover:bg-green-200 transition-all shadow-sm"
+                          title="Add One"
+                        >
+                          <Plus size={16} />
+                        </button>
+
+                        {/* Delete All */}
+                        <button
+                          onClick={() => deleteFromCart(product._id)}
+                          className="p-2 bg-gray-100 text-gray-600 rounded-full hover:bg-gray-200 transition-all shadow-sm"
+                          title="Remove All"
+                        >
+                          <Trash2 size={16} />
                         </button>
                       </td>
+
                     </tr>
                   );
                 } else {
@@ -112,11 +137,10 @@ const Cart = () => {
                 ? () => navigate("/placeOrder")
                 : () => navigate("/cart")
             }
-            className={`px-6 py-3 rounded-md font-semibold text-white transition ${
-              getTotalCart() > 0
+            className={`px-6 py-3 rounded-md font-semibold text-white transition ${getTotalCart() > 0
                 ? "bg-blue-600 hover:bg-blue-700"
                 : "bg-gray-400 cursor-not-allowed"
-            }`}
+              }`}
           >
             Proceed to Checkout
           </button>

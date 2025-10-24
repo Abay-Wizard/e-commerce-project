@@ -1,8 +1,11 @@
 import { createContext, useState, useEffect } from "react";
 import axios from "axios";
+import toast from 'react-hot-toast'
 export const StoreContext = createContext(null);
 const StoreContextProvider = (props) => {
-  const url = "https://e-commerce-project-1pvn.onrender.com";
+  const [searchText,setSearchText] =useState('')
+  const [category,setCategory] =useState('')
+  const url = "http://localhost:5000"; //https://e-commerce-project-1pvn.onrender.com
   const [token, setToken] = useState("");
   const [products, setProducts] = useState([]);
   const [cartItems, setCartItems] = useState({});
@@ -55,6 +58,11 @@ const StoreContextProvider = (props) => {
         { productId },
         { headers: { token } }
       );
+
+      if(cartItems[productId]===0){
+         toast.success('Product added to Cart!')
+      }
+      
     } catch (error) {
       console.log(error);
     }
@@ -71,12 +79,27 @@ const StoreContextProvider = (props) => {
       );
     } catch (error) {}
   };
+ 
+  const deleteFromCart = async(productId)=>{
+     try {
+      if (cartItems[productId] > 0) {
+        setCartItems({ ...cartItems, [productId]: 0 });
+        toast.success('product removed from cart!')
+      }
+      await axios.post(
+        `${url}/api/cart/delete`,
+        { productId },
+        { headers: { token } }
+      );
+    } catch (error) {}
+  };
+  
 
   const getTotalCart = () => {
     let totalCart = 0;
     products.forEach((product) => {
       if (cartItems[product._id] > 0) {
-        totalCart += cartItems[product._id];
+        totalCart +=1;
       }
     });
     return totalCart;
@@ -105,7 +128,12 @@ const StoreContextProvider = (props) => {
     addToCart,
     getTotalCart,
     getTotalPrice,
-    setRefreshFlag
+    setRefreshFlag,
+    searchText,
+    setSearchText,
+    category,
+    setCategory,
+    deleteFromCart
   };
 
   useEffect(() => {

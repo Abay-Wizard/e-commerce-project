@@ -34,11 +34,7 @@ const PlaceOrder = () => {
     setAddress({ ...address, [name]: value });
   };
 
-  const orderData = {
-    items,
-    amount,
-    address,
-  };
+  const orderData = { items, amount, address };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -69,17 +65,19 @@ const PlaceOrder = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center px-4 py-10">
-      <div className="w-full max-w-4xl bg-white rounded-2xl shadow-xl overflow-hidden">
-        <div className="bg-blue-600 py-6 text-center text-white">
+    <div className="min-h-screen bg-gradient-to-br from-red-50 via-rose-100 to-red-200 flex items-center justify-center px-4 py-10">
+      <div className="w-full max-w-4xl bg-white rounded-2xl shadow-2xl overflow-hidden">
+        {/* Header */}
+        <div className="bg-gradient-to-r from-red-600 to-rose-700 py-6 text-center text-white shadow-md">
           <h1 className="text-2xl md:text-3xl font-bold tracking-wide">
             🛍️ Place Your Order
           </h1>
-          <p className="text-blue-100 mt-1">
+          <p className="text-red-100 mt-1">
             Complete your delivery details to continue to payment
           </p>
         </div>
 
+        {/* Form (unchanged structure) */}
         <form
           onSubmit={handleSubmit}
           className="p-6 md:p-10 grid grid-cols-1 md:grid-cols-2 gap-6"
@@ -91,7 +89,7 @@ const PlaceOrder = () => {
             type="text"
             required
             value={address.firstName}
-            className="border rounded-lg p-3 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+            className="border rounded-lg p-3 focus:ring-2 focus:ring-red-400 focus:outline-none"
           />
           <input
             onChange={handleEvent}
@@ -100,7 +98,7 @@ const PlaceOrder = () => {
             type="text"
             required
             value={address.lastName}
-            className="border rounded-lg p-3 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+            className="border rounded-lg p-3 focus:ring-2 focus:ring-red-400 focus:outline-none"
           />
           <input
             onChange={handleEvent}
@@ -109,7 +107,7 @@ const PlaceOrder = () => {
             type="email"
             required
             value={address.email}
-            className="border rounded-lg p-3 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+            className="border rounded-lg p-3 focus:ring-2 focus:ring-red-400 focus:outline-none"
           />
           <input
             onChange={handleEvent}
@@ -118,7 +116,7 @@ const PlaceOrder = () => {
             type="text"
             required
             value={address.phone}
-            className="border rounded-lg p-3 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+            className="border rounded-lg p-3 focus:ring-2 focus:ring-red-400 focus:outline-none"
           />
           <input
             onChange={handleEvent}
@@ -127,7 +125,7 @@ const PlaceOrder = () => {
             type="text"
             required
             value={address.street}
-            className="border rounded-lg p-3 focus:ring-2 focus:ring-blue-400 focus:outline-none col-span-1 md:col-span-2"
+            className="border rounded-lg p-3 focus:ring-2 focus:ring-red-400 focus:outline-none col-span-1 md:col-span-2"
           />
           <input
             onChange={handleEvent}
@@ -136,7 +134,7 @@ const PlaceOrder = () => {
             type="text"
             required
             value={address.zipcode}
-            className="border rounded-lg p-3 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+            className="border rounded-lg p-3 focus:ring-2 focus:ring-red-400 focus:outline-none"
           />
           <input
             onChange={handleEvent}
@@ -145,7 +143,7 @@ const PlaceOrder = () => {
             type="text"
             required
             value={address.city}
-            className="border rounded-lg p-3 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+            className="border rounded-lg p-3 focus:ring-2 focus:ring-red-400 focus:outline-none"
           />
           <input
             onChange={handleEvent}
@@ -154,7 +152,7 @@ const PlaceOrder = () => {
             type="text"
             required
             value={address.state}
-            className="border rounded-lg p-3 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+            className="border rounded-lg p-3 focus:ring-2 focus:ring-red-400 focus:outline-none"
           />
           <input
             onChange={handleEvent}
@@ -163,19 +161,20 @@ const PlaceOrder = () => {
             type="text"
             required
             value={address.country}
-            className="border rounded-lg p-3 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+            className="border rounded-lg p-3 focus:ring-2 focus:ring-red-400 focus:outline-none"
           />
 
+          {/* Summary + Button */}
           <div className="md:col-span-2 flex flex-col items-center gap-4 mt-4">
             <p className="text-gray-600 text-lg">
               Delivery Fee: <span className="font-semibold">$4</span>
             </p>
             <p className="text-gray-800 font-bold text-xl">
-              Total: <span className="text-blue-600">${amount}</span>
+              Total: <span className="text-red-600">${amount}</span>
             </p>
             <button
               type="submit"
-              className="px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 active:scale-95 transition-transform duration-200"
+              className="px-8 py-3 bg-gradient-to-r from-red-600 to-rose-700 text-white font-semibold rounded-lg shadow-md hover:shadow-lg hover:from-red-700 hover:to-rose-800 active:scale-95 transition-transform duration-200"
             >
               Go to Payment 💳
             </button>

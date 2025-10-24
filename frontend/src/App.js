@@ -12,6 +12,7 @@ import PlaceOrder from './pages/PlaceOrder';
 import Cart from './pages/Cart';
 import Verify from './pages/Verify';
 import UserOrder from './pages/UserOrder';
+import DetailPage from './pages/DetailPage';
 function App() {
   return (
     <div className='flex flex-col min-h-screen'>
@@ -28,6 +29,7 @@ function App() {
         <Route path='/cart' element={<Cart/>} />
         <Route path='/verify' element={<Verify/>} />
         <Route path='/myorders' element={<UserOrder/>} />
+        <Route path='/detail/:id' element={<DetailPage/>} />
       </Routes>
       </main>
       <Footer/>

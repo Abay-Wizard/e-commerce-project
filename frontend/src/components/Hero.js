@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import GoShop from '../assets/go_shop_hero_red(1).png'
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -39,7 +40,7 @@ const Hero = () => {
         transition={{ duration: 1, delay: 0.3 }}
       >
         <img
-          src="https://cdn.dribbble.com/userupload/11084676/file/original-9c2614f18b744c4a65801282cecc89cb.png?format=webp&resize=600x400&vertical=center"
+          src={GoShop}
           alt="hero"
           className="rounded-2xl shadow-lg"
         />

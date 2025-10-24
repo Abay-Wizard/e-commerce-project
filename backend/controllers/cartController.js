@@ -33,6 +33,22 @@ const removeFromCart =async(req,res)=>{
     }
 }
 
+const deleteFromCart=async(req,res)=>{
+     const {productId} =req.body
+    try {
+        const userData=await User.findById(req.userId)
+        const cartData=userData.cartData
+        if(cartData[productId]>0){
+            cartData[productId]=0
+        }
+        await User.findByIdAndUpdate(req.userId,{cartData})
+        res.status(201).json({success:true, message:'cartData updated successfully!'})
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({success:false, message:"Server error"})
+    }
+}
+
 const getFromCart =async(req,res)=>{
     try {
         const userData=await User.findById(req.userId)
@@ -44,4 +60,4 @@ const getFromCart =async(req,res)=>{
     }
 }
 
-export {addToCart,removeFromCart,getFromCart}
+export {addToCart,removeFromCart,getFromCart,deleteFromCart}

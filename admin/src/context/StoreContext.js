@@ -6,7 +6,7 @@ import { useEffect } from "react";
 
 export const StoreContext = createContext(null);
 const StoreContextProvider = (props) => {
-  const url = "https://e-commerce-project-1pvn.onrender.com"; //https://e-commerce-project-1pvn.onrender.com
+  const url = "http://localhost:5000"; //https://e-commerce-project-1pvn.onrender.com
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
   const [users,setUsers]=useState([])

@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
 import { StoreContext } from "../context/StoreContext";
 import { FaTrash } from "react-icons/fa";
+import { Edit } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const ListProduct = () => {
   const { products, deleteProduct, url } = useContext(StoreContext);
@@ -51,13 +53,25 @@ const ListProduct = () => {
                     </td>
                     <td className="p-4">{product.ratings}⭐</td>
                     <td className="p-4 text-center">
-                      <button
-                        onClick={() => deleteProduct(product._id)}
-                        className="p-2 bg-red-100 text-red-600 rounded-full hover:bg-red-200 transition"
-                      >
-                        <FaTrash size={16} />
-                      </button>
+                      <div className="flex items-center justify-center gap-3">
+                        <Link
+                          to={`/update/${product._id}`}
+                          className="p-2 bg-blue-100 text-blue-600 rounded-full hover:bg-blue-200 transition"
+                          title="Edit Product"
+                        >
+                          <Edit size={16} />
+                        </Link>
+
+                        <button
+                          onClick={() => deleteProduct(product._id)}
+                          className="p-2 bg-red-100 text-red-600 rounded-full hover:bg-red-200 transition"
+                          title="Delete Product"
+                        >
+                          <FaTrash size={16} />
+                        </button>
+                      </div>
                     </td>
+
                   </tr>
                 ))
               ) : (

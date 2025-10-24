@@ -8,6 +8,7 @@ import Footer from './components/Footer';
 import { Toaster } from 'react-hot-toast';
 import Users from './pages/Users';
 import ContactUs from './pages/ContactUs';
+import EditProduct from './pages/EditProduct';
 function App() {
   return (
     <div className="flex flex-col min-h-screen">
@@ -20,6 +21,7 @@ function App() {
           <Route path='/list' element={<ListProduct/>} />
           <Route path='/users' element={<Users/>} />
           <Route path='/inquiries' element={<ContactUs/>} />
+          <Route path='/update/:id' element={<EditProduct/>} />
         </Routes>
       </main>
       <Footer/>
