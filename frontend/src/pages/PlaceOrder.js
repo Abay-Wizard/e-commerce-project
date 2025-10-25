@@ -7,7 +7,12 @@ const PlaceOrder = () => {
   const { url, products, cartItems, getTotalPrice, token } =
     useContext(StoreContext);
   let items = [];
-  const amount = (getTotalPrice() + 4).toFixed(2);
+  let amount;
+  if(getTotalPrice() >1000){
+    amount = (getTotalPrice()).toFixed(2);
+  }else{
+    amount = (getTotalPrice()+2).toFixed(2);
+  }
   const [address, setAddress] = useState({
     firstName: "",
     lastName: "",
@@ -167,7 +172,7 @@ const PlaceOrder = () => {
           {/* Summary + Button */}
           <div className="md:col-span-2 flex flex-col items-center gap-4 mt-4">
             <p className="text-gray-600 text-lg">
-              Delivery Fee: <span className="font-semibold">$4</span>
+              Delivery Fee: <span className="font-semibold">{amount > 1000 ? 0:2}</span>
             </p>
             <p className="text-gray-800 font-bold text-xl">
               Total: <span className="text-red-600">${amount}</span>

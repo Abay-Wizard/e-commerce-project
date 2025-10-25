@@ -5,7 +5,7 @@ export const StoreContext = createContext(null);
 const StoreContextProvider = (props) => {
   const [searchText,setSearchText] =useState('')
   const [category,setCategory] =useState('')
-  const url = "http://localhost:5000"; //https://e-commerce-project-1pvn.onrender.com
+  const url = "https://e-commerce-project-1pvn.onrender.com"; //https://e-commerce-project-1pvn.onrender.com
   const [token, setToken] = useState("");
   const [products, setProducts] = useState([]);
   const [cartItems, setCartItems] = useState({});
@@ -59,7 +59,7 @@ const StoreContextProvider = (props) => {
         { headers: { token } }
       );
 
-      if(cartItems[productId]===0){
+      if(cartItems[productId]===0 ||!cartItems[productId]){
          toast.success('Product added to Cart!')
       }
       

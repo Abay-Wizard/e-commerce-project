@@ -15,6 +15,12 @@ const Cart = () => {
     deleteFromCart
   } = useContext(StoreContext);
   const navigate = useNavigate();
+  let deliverCharge;
+  if(getTotalPrice()>1000){
+    deliverCharge=0
+  }else{
+    deliverCharge=2
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
@@ -117,7 +123,7 @@ const Cart = () => {
         <div className="p-6 border-t bg-gray-50 flex flex-col sm:flex-row justify-between gap-6">
           <div className="text-gray-700 space-y-2">
             <p className="text-lg font-medium">
-              Delivery Charges: <span className="font-semibold">$4</span>
+              Delivery Charges: <span className="font-semibold">${deliverCharge}</span>
             </p>
             <p className="text-lg font-medium">
               Total Items:{" "}
@@ -126,7 +132,7 @@ const Cart = () => {
             <p className="text-lg font-medium">
               Total Price:{" "}
               <span className="text-blue-600 font-bold">
-                ${(getTotalPrice() + 4).toFixed(2)}
+                ${(getTotalPrice() + deliverCharge).toFixed(2)}
               </span>
             </p>
           </div>
