@@ -76,7 +76,6 @@ const EditProduct = () => {
                     onSubmit={handleSubmit}
                     className="flex flex-col gap-5"
                 >
-                    {/* Image Upload */}
                     <label
                         htmlFor="image"
                         className="cursor-pointer flex flex-col items-center hover:scale-105 transition-transform"
@@ -96,11 +95,10 @@ const EditProduct = () => {
                         type="file"
                         id="image"
                         accept="image/*"
-                        // required
                         hidden
                     />
 
-                    {/* Product Inputs */}
+                    
                     <input
                         onChange={handleEvent}
                         name="name"
@@ -156,7 +154,7 @@ const EditProduct = () => {
                         <option>Gifts</option>
                     </select>
 
-                    {/* Submit Button */}
+                   
                     <button
                         type="submit"
                         className="w-full bg-red-600 text-white py-3 rounded-lg font-semibold shadow-md hover:bg-red-700 transition"

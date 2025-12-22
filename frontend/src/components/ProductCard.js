@@ -8,7 +8,6 @@ const ProductCard = ({ name, price, description, image, ratings, id }) => {
 
   return (
     <div className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 max-w-sm w-full flex flex-col hover:-translate-y-1">
-      {/* Product Image */}
       <img
         onClick={()=>navigate(`/detail/${id}`)} 
         src={image}
@@ -16,7 +15,6 @@ const ProductCard = ({ name, price, description, image, ratings, id }) => {
         className="h-48 w-full object-cover"
       />
 
-      {/* Card Body */}
       <div className="p-5 flex flex-col flex-grow">
         <h1 className="text-lg font-semibold text-gray-800 truncate">{name}</h1>
         <p className="text-sm text-gray-500 mt-1 line-clamp-2">{description}</p>
@@ -26,7 +24,6 @@ const ProductCard = ({ name, price, description, image, ratings, id }) => {
           <span className="text-yellow-500 text-sm">⭐ {ratings}</span>
         </div>
 
-        {/* Cart Buttons */}
         <div className="mt-4">
           {!cartItems[id] ? (
             <button

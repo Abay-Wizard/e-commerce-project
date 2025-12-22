@@ -1,27 +1,41 @@
 import { createContext, useState, useEffect } from "react";
 import axios from "axios";
-import toast from 'react-hot-toast'
+import toast from "react-hot-toast";
 export const StoreContext = createContext(null);
 const StoreContextProvider = (props) => {
-  const [searchText,setSearchText] =useState('')
-  const [category,setCategory] =useState('')
+  const [searchText, setSearchText] = useState("");
+  const [category, setCategory] = useState("");
   const url = "https://e-commerce-project-1pvn.onrender.com"; //https://e-commerce-project-1pvn.onrender.com
   const [token, setToken] = useState("");
   const [products, setProducts] = useState([]);
   const [cartItems, setCartItems] = useState({});
   const [orders, setOrders] = useState([]);
-  const [refreshFlag,setRefreshFlag] =useState(false)
+  const [refreshFlag, setRefreshFlag] = useState(false);
+  const [isFetchingProducts, setIsFetchingProducts] = useState(false);
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(8);
+  const [totalPages, setTotalPages] = useState(1);
 
   const fetchProducts = async () => {
+    if (isFetchingProducts) return;
+
+    setIsFetchingProducts(true);
     try {
-      const res = await axios.get(`${url}/api/product/list`);
+      const res = await axios.get(
+        `${url}/api/product/list?page=${page}&limit=${limit}`
+      );
+
       if (res.data.success) {
         setProducts(res.data.data);
+        setTotalPages(res.data.pagination.totalPages);
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsFetchingProducts(false);
     }
   };
+
   const fetchOrders = async () => {
     try {
       const res = await axios.get(`${url}/api/order/userorder`, {
@@ -59,10 +73,9 @@ const StoreContextProvider = (props) => {
         { headers: { token } }
       );
 
-      if(cartItems[productId]===0 ||!cartItems[productId]){
-         toast.success('Product added to Cart!')
+      if (cartItems[productId] === 0 || !cartItems[productId]) {
+        toast.success("Product added to Cart!");
       }
-      
     } catch (error) {
       console.log(error);
     }
@@ -79,12 +92,12 @@ const StoreContextProvider = (props) => {
       );
     } catch (error) {}
   };
- 
-  const deleteFromCart = async(productId)=>{
-     try {
+
+  const deleteFromCart = async (productId) => {
+    try {
       if (cartItems[productId] > 0) {
         setCartItems({ ...cartItems, [productId]: 0 });
-        toast.success('product removed from cart!')
+        toast.success("product removed from cart!");
       }
       await axios.post(
         `${url}/api/cart/delete`,
@@ -93,13 +106,12 @@ const StoreContextProvider = (props) => {
       );
     } catch (error) {}
   };
-  
 
   const getTotalCart = () => {
     let totalCart = 0;
     products.forEach((product) => {
       if (cartItems[product._id] > 0) {
-        totalCart +=1;
+        totalCart += 1;
       }
     });
     return totalCart;
@@ -133,12 +145,18 @@ const StoreContextProvider = (props) => {
     setSearchText,
     category,
     setCategory,
-    deleteFromCart
+    deleteFromCart,
+    isFetchingProducts,
+    page,
+    setPage,
+    limit,
+    setLimit,
+    totalPages,
+    setTotalPages,
   };
 
   useEffect(() => {
     const loadData = async () => {
-      await fetchProducts();
       const savedToken = localStorage.getItem("token");
       if (savedToken) {
         setToken(savedToken);
@@ -150,15 +168,19 @@ const StoreContextProvider = (props) => {
   }, []);
 
   useEffect(() => {
+    fetchProducts();
+  }, [page]);
+
+  useEffect(() => {
     if (token) {
       fetchCartItems(token);
       fetchOrders();
     }
   }, [token]);
 
-  useEffect(()=>{
-    fetchOrders()
-  },[refreshFlag])
+  useEffect(() => {
+    fetchOrders();
+  }, [refreshFlag]);
 
   return (
     <StoreContext.Provider value={values}>

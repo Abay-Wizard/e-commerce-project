@@ -1,16 +1,14 @@
 import React, { useContext } from "react";
 import ProductCard from "./ProductCard";
 import { StoreContext } from "../context/StoreContext";
+import ProductDisplaySkeleton from "./ProductDisplaySkeleton";
 
 const ProductDisplay = () => {
-  const { url, products } = useContext(StoreContext);
-  const { searchText } = useContext(StoreContext)
-  const { category, setCategory } = useContext(StoreContext)
+  const { url, products,category, setCategory,searchText,isFetchingProducts } = useContext(StoreContext);
   const filteredProducts = category ? products.filter(product => product.category === category) : products
 
   return (
     <div className="py-12 bg-gray-50 min-h-screen flex flex-col items-center">
-      {/* Section Header */}
       <div className="w-full max-w-6xl flex flex-col sm:flex-row justify-between items-center mb-8 px-4">
         <h2 className="text-3xl font-bold text-gray-800 text-center sm:text-left mb-3">
           Our Products
@@ -21,7 +19,6 @@ const ProductDisplay = () => {
 
 
 
-        {/* Styled Select Filter */}
         <select
           value={category}
           onChange={(e) => setCategory(e.target.value)}
@@ -34,8 +31,11 @@ const ProductDisplay = () => {
           <option value="Shoes">Shoes</option>
         </select>
       </div>
-
-      {/* Product Grid */}
+      
+      {
+       ( isFetchingProducts && filteredProducts.length == 0) && <ProductDisplaySkeleton/>
+      }
+      
       <div className="w-full max-w-6xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 justify-items-center cursor-pointer">
         {filteredProducts
           .filter((product) =>
